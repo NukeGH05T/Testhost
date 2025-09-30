@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lua Script Collection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #search {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 20px;
+    }
+    .script-card {
+      background: #222;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    }
+    .script-card a {
+      color: #4fc3f7;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .script-card small {
+      display: block;
+      margin-top: 5px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lua Script Collection</h1>
+  <input type="text" id="search" placeholder="Search scripts by title or author..." />
+
+  <div id="script-list"></div>
+
+  <script>
+    // You must create a JSON index of your scripts since GitHub Pages doesn't allow folder listings.
+    // Example scripts.json format:
+    // [
+    //   "MyScript+++Alice.lua",
+    //   "Teleport+++Bob.lua"
+    // ]
+    async function loadScripts() {
+      const response = await fetch("scripts.json");
+      const files = await response.json();
+
+      const container = document.getElementById("script-list");
+      container.innerHTML = "";
+
+      files.forEach(file => {
+        const [title, author] = file.replace(".lua","").split("+++");
+        const card = document.createElement("div");
+        card.className = "script-card";
+        card.innerHTML = `
+          <a href="scripts/${file}" target="_blank">${title}</a>
+          <small>by ${author}</small>
+        `;
+        container.appendChild(card);
+      });
+
+      // Enable searching
+      document.getElementById("search").addEventListener("input", e => {
+        const term = e.target.value.toLowerCase();
+        Array.from(container.children).forEach(card => {
+          const text = card.innerText.toLowerCase();
+          card.style.display = text.includes(term) ? "" : "none";
+        });
+      });
+    }
+
+    loadScripts();
+  </script>
+</body>
+</html>
