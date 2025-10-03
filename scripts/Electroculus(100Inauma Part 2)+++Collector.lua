@@ -1,0 +1,228 @@
+local PATH = "tp_idx.txt"
+local Vector3 = CS.UnityEngine.Vector3
+
+local function show(msg)
+  if CS and CS.MoleMole and CS.MoleMole.ActorUtils and CS.MoleMole.ActorUtils.ShowMessage then
+    CS.MoleMole.ActorUtils.ShowMessage(tostring(msg))
+  else
+    print(tostring(msg))
+  end
+end
+
+-- 替换tp坐标 --
+local W = {
+  {name="LeiShen1",  x=-6134.27, y=213.49, z=-3269.74},
+  {name="LeiShen2",  x=-6691.51, y=228.09, z=-2598.79},
+  {name="LeiShen3",  x=-2507.74, y=260.26, z=-3890.78},
+  {name="LeiShen4",  x=-2151.24, y=232.51, z=-3467.56},
+  {name="LeiShen5",  x=-2101.68, y=165.95, z=-4505.27},
+  {name="LeiShen6",  x=-2093.58, y=228.52, z=-4637.56},
+  {name="LeiShen7",  x=-2199.02, y=212.39, z=-4934.20},
+  {name="LeiShen8",  x=-2347.24, y=196.53, z=-4794.15},
+  {name="LeiShen9",  x=-2561.32, y=242.99, z=-4632.72},
+  {name="LeiShen10",  x=-2477.58, y=218.70, z=-4624.79},
+  {name="LeiShen11",  x=-2326.58, y=238.43, z=-4256.98},
+  {name="LeiShen12",  x=-2183.33, y=218.85, z=-4261.31},
+  {name="LeiShen13",  x=-2350.38, y=196.62, z=-4251.45},
+  {name="LeiShen14",  x=-2436.66, y=259.23, z=-4288.24},
+  {name="LeiShen15",  x=-2376.70, y=231.49, z=-4356.19},
+  {name="LeiShen16",  x=-2485.89, y=462.90, z=-4391.07},
+  {name="LeiShen17",  x=-2474.54, y=377.46, z=-4377.50},
+  {name="LeiShen18",  x=-2450.55, y=256.34, z=-4473.15},
+  {name="LeiShen19",  x=-2512.39, y=311.02, z=-4507.42},
+  {name="LeiShen20",  x=-2538.61, y=246.36, z=-4395.20},
+  {name="LeiShen21",  x=-2575.01, y=423.66, z=-4451.45},
+  {name="LeiShen22",  x=-2646.21, y=260.49, z=-4471.27},
+  {name="LeiShen23",  x=-2561.05, y=243.10, z=-4346.63},
+  {name="LeiShen24",  x=-2627.52, y=252.13, z=-4361.48},
+  {name="LeiShen25",  x=-2715.19, y=216.58, z=-4347.37},
+  {name="LeiShen26",  x=-2758.91, y=234.22, z=-4462.96},
+  {name="LeiShen27",  x=-2908.50, y=282.52, z=-4415.87},
+  {name="LeiShen28",  x=-2470.01, y=235.97, z=-4099.69},
+  {name="LeiShen29",  x=-2493.64, y=214.35, z=-4167.40},
+  {name="LeiShen30",  x=-2542.63, y=273.50, z=-4261.77},
+  {name="LeiShen31",  x=-2636.03, y=212.57, z=-3993.74},
+  {name="LeiShen32",  x=-2716.32, y=238.14, z=-3981.50},
+  {name="LeiShen33",  x=-2825.26, y=198.38, z=-4084.98},
+  {name="LeiShen34",  x=-2775.08, y=221.21, z=-4143.93},
+  {name="LeiShen35",  x=-2829.38, y=177.35, z=-4065.87},
+  {name="LeiShen36",  x=-2932.73, y=220.35, z=-4171.73},
+  {name="LeiShen37",  x=-3379.20, y=380.67, z=-4581.86},
+  {name="LeiShen38",  x=-3348.71, y=214.33, z=-4609.62},
+  {name="LeiShen39",  x=-3021.34, y=234.11, z=-4042.20},
+  {name="LeiShen40",  x=-3376.32, y=195.91, z=-4218.13},
+  {name="LeiShen41",  x=-3251.82, y=201.74, z=-3933.80},
+  {name="LeiShen42",  x=-3611.83, y=236.44, z=-3198.14},
+  {name="LeiShen43",  x=-3206.10, y=236.44, z=-3489.91},
+  {name="LeiShen44",  x=-3373.17, y=238.10, z=-3704.93},
+  {name="LeiShen45",  x=-3588.55, y=210.50, z=-3638.27},
+  {name="LeiShen46",  x=-2992.37, y=206.63, z=-3208.18},
+  {name="LeiShen47",  x=-3272.81, y=202.60, z=-3277.23},
+  {name="LeiShen48",  x=-3360.20, y=199.91, z=-3138.89},
+  {name="LeiShen49",  x=-3456.40, y=212.56, z=-3043.54},
+  {name="LeiShen50",  x=-3415.31, y=214.13, z=-2978.91},
+  {name="LeiShen51",  x=-3630.28, y=234.91, z=-3254.90},
+  {name="LeiShen52",  x=-3341.34, y=204.49, z=-3462.73},
+  {name="LeiShen53",  x=-3662.26, y=212.31, z=-2992.30},
+  {name="LeiShen54",  x=-3606.32, y=270.77, z=-3160.69},
+  {name="LeiShen55",  x=-3673.63, y=272.84, z=-3061.00},
+  {name="LeiShen56",  x=-3744.76, y=243.36, z=-2975.61},
+  {name="LeiShen57",  x=-3802.90, y=287.47, z=-3005.57},
+  {name="LeiShen58",  x=-3876.97, y=251.70, z=-2998.02},
+  {name="LeiShen59",  x=-3877.76, y=228.58, z=-3039.04},
+  {name="LeiShen60",  x=-3858.47, y=297.07, z=-3120.57},
+  {name="LeiShen61",  x=-3782.43, y=279.30, z=-3055.29},
+  {name="LeiShen62",  x=-3784.85, y=210.62, z=-3071.76},
+  {name="LeiShen63",  x=-3863.69, y=226.24, z=-3231.61},
+  {name="LeiShen64",  x=-3805.37, y=274.80, z=-3219.95},
+  {name="LeiShen65",  x=-3712.39, y=298.02, z=-3138.14},
+  {name="LeiShen66",  x=-3693.76, y=259.16, z=-3125.02},
+  {name="LeiShen67",  x=-3706.11, y=266.06, z=-3163.29},
+  {name="LeiShen68",  x=-3636.07, y=207.12, z=-2809.34},
+  {name="LeiShen69",  x=-3540.35, y=213.54, z=-2780.27},
+  {name="LeiShen70",  x=-3484.60, y=246.11, z=-2639.26},
+  {name="LeiShen71",  x=-3638.95, y=215.97, z=-2439.14},
+  {name="LeiShen72",  x=-3755.88, y=279.91, z=-2557.10},
+  {name="LeiShen73",  x=-3786.97, y=263.03, z=-2439.72},
+  {name="LeiShen74",  x=-3808.09, y=279.55, z=-2382.18},
+  {name="LeiShen75",  x=-3735.82, y=297.61, z=-2329.80},
+  {name="LeiShen76",  x=-3871.99, y=268.54, z=-2459.74},
+  {name="LeiShen77",  x=-3949.27, y=199.92, z=-2417.48},
+  {name="LeiShen78",  x=-3970.66, y=398.37, z=-2444.66},
+  {name="LeiShen79",  x=-4021.41, y=253.71, z=-2426.66},
+  {name="LeiShen80",  x=-4079.42, y=229.87, z=-2396.01},
+  {name="LeiShen81",  x=-4078.15, y=202.93, z=-2457.02},
+  {name="LeiShen82",  x=-4132.02, y=252.61, z=-2349.68},
+  {name="LeiShen83",  x=-4346.47, y=202.39, z=-2515.24},
+  {name="LeiShen84",  x=-4130.18, y=261.05, z=-2243.27},
+  {name="LeiShen85",  x=-4024.60, y=239.92, z=-2277.08},
+  {name="LeiShen86",  x=-3974.95, y=250.00, z=-2178.19},
+  {name="LeiShen87",  x=-4027.55, y=234.34, z=-2101.56},
+  {name="LeiShen88",  x=-3858.71, y=202.43, z=-2028.04},
+  {name="LeiShen89",  x=-3891.58, y=260.13, z=-2276.72},
+  {name="LeiShen90",  x=-3795.53, y=246.30, z=-2194.29},
+  {name="LeiShen91",  x=-3759.83, y=231.77, z=-2088.78},
+  {name="LeiShen92",  x=-3620.76, y=288.44, z=-2181.98},
+  {name="LeiShen93",  x=-3524.24, y=225.65, z=-2176.66},
+  {name="LeiShen94",  x=-3611.75, y=228.98, z=-2000.37},
+  {name="LeiShen95",  x=-3505.84, y=204.41, z=-1972.05},
+  {name="LeiShen96",  x=-3822.79, y=212.06, z=-1801.54},
+  {name="LeiShen97",  x=-3728.34, y=249.17, z=-1604.34},
+  {name="LeiShen98",  x=-3872.36, y=222.86, z=-478.72},
+  {name="LeiShen99",  x=-3749.45, y=193.27, z=-582.76},
+  {name="LeiShen100",  x=-3542.00, y=217.12, z=-541.81},
+  {name="LeiShen101",  x=-3478.42, y=220.91, z=-831.08},
+  {name="LeiShen102",  x=-3589.41, y=217.89, z=-858.84},
+  {name="LeiShen103",  x=-3595.39, y=181.56, z=-961.43},
+  {name="LeiShen104",  x=-3541.24, y=197.80, z=-1152.11},
+  {name="LeiShen105",  x=-3792.71, y=201.10, z=-674.13},
+  {name="LeiShen106",  x=-3690.61, y=140.69, z=-690.96},
+  {name="LeiShen107",  x=-3656.99, y=148.77, z=-803.33},
+  {name="LeiShen108",  x=-3693.54, y=124.53, z=-902.82},
+  {name="LeiShen109",  x=-3829.32, y=139.22, z=-745.05},
+  {name="LeiShen110",  x=-3892.60, y=110.34, z=-737.74},
+  {name="LeiShen111",  x=-3985.56, y=164.48, z=-821.35},
+  {name="LeiShen112",  x=-4060.54, y=207.06, z=-815.71},
+  {name="LeiShen113",  x=-4061.79, y=238.08, z=-873.19},
+  {name="LeiShen114",  x=-4144.04, y=208.49, z=-1023.58},
+  {name="LeiShen115",  x=-3990.78, y=188.28, z=-932.84},
+  {name="LeiShen116",  x=-3903.02, y=131.89, z=-987.48},
+  {name="LeiShen117",  x=-3810.65, y=169.63, z=-1066.96},
+  {name="LeiShen118",  x=-3804.36, y=139.46, z=-1032.20},
+  {name="LeiShen119",  x=-4188.17, y=226.85, z=-3584.02},
+  {name="LeiShen120",  x=-4438.95, y=208.84, z=-3968.21},
+  {name="LeiShen121",  x=-4494.43, y=220.93, z=-3925.48},
+  {name="LeiShen122",  x=-4434.92, y=346.15, z=-3819.51},
+  {name="LeiShen123",  x=-4433.27, y=235.45, z=-3740.06},
+  {name="LeiShen124",  x=-4433.50, y=202.03, z=-3765.21},
+  {name="LeiShen125",  x=-4438.26, y=200.09, z=-3719.38},
+  {name="LeiShen126",  x=-4357.03, y=229.49, z=-4019.44},
+  {name="LeiShen127",  x=-4359.07, y=282.46, z=-4056.55},
+  {name="LeiShen128",  x=-4672.98, y=216.07, z=-3727.08},
+  {name="LeiShen129",  x=-4739.96, y=234.62, z=-3708.69},
+  {name="LeiShen130",  x=-4738.34, y=204.99, z=-3766.00},
+  {name="LeiShen131",  x=-4360.24, y=297.05, z=-4230.26},
+  {name="LeiShen132",  x=-4350.97, y=207.76, z=-4265.24},
+  {name="LeiShen133",  x=-4298.89, y=210.29, z=-4223.75},
+  {name="LeiShen134",  x=-4311.15, y=244.44, z=-4161.55},
+  {name="LeiShen135",  x=-4258.23, y=203.65, z=-4475.41},
+  {name="LeiShen136",  x=-4408.17, y=206.05, z=-4556.50},
+  {name="LeiShen137",  x=-4481.85, y=217.47, z=-4641.30},
+  {name="LeiShen138",  x=-4545.66, y=243.92, z=-4507.29},
+  {name="LeiShen139",  x=-4457.92, y=204.06, z=-4346.96},
+  {name="LeiShen140",  x=-4814.49, y=266.70, z=-4656.41},
+  {name="LeiShen141",  x=-4867.56, y=207.75, z=-4776.38},
+  {name="LeiShen142",  x=-4939.03, y=306.28, z=-4245.12},
+  {name="LeiShen143",  x=-4906.12, y=211.44, z=-3890.25},
+  {name="LeiShen144",  x=-4574.05, y=377.14, z=-4226.20},
+  {name="LeiShen145",  x=-4570.03, y=336.78, z=-4306.89},
+  {name="LeiShen146",  x=-4682.79, y=558.46, z=-4159.65},
+  {name="LeiShen147",  x=-4697.20, y=211.70, z=-4106.32},
+  {name="LeiShen148",  x=-4781.37, y=510.61, z=-4268.39},
+  {name="LeiShen149",  x=-4809.40, y=248.18, z=-4394.49},
+  {name="LeiShen150",  x=-4665.24, y=447.98, z=-4228.30},
+  {name="LeiShen151",  x=-4658.41, y=196.80, z=-4248.06},
+  {name="LeiShen152",  x=-4644.58, y=173.89, z=-4243.66},
+  {name="LeiShen153",  x=-4677.23, y=161.03, z=-4248.88},
+  {name="LeiShen154",  x=-6678.30, y=207.66, z=-2618.22},
+  {name="LeiShen155",  x=-6483.26, y=222.14, z=-2448.50},
+  {name="LeiShen156",  x=-6377.48, y=205.85, z=-2437.75},
+  {name="LeiShen157",  x=-6344.44, y=281.86, z=-2464.95},
+  {name="LeiShen158",  x=-6284.30, y=209.54, z=-2454.76},
+  {name="LeiShen159",  x=-6195.29, y=224.00, z=-2367.07},
+  {name="LeiShen160",  x=-6331.99, y=270.00, z=-2594.24},
+  {name="LeiShen161",  x=-6401.02, y=256.67, z=-2622.52},
+  {name="LeiShen162",  x=-6341.23, y=381.69, z=-2677.61},
+  {name="LeiShen163",  x=-6292.31, y=257.74, z=-2715.35},
+  {name="LeiShen164",  x=-6219.31, y=259.05, z=-2707.77},
+  {name="LeiShen165",  x=-6187.80, y=213.05, z=-2727.45},
+  {name="LeiShen166",  x=-6152.11, y=222.54, z=-2816.59},
+  {name="LeiShen167",  x=-6224.92, y=209.81, z=-2776.66},
+  {name="LeiShen168",  x=-6296.58, y=250.81, z=-2787.19},
+  {name="LeiShen169",  x=-6369.47, y=260.74, z=-2771.19},
+  {name="LeiShen170",  x=-6410.95, y=220.15, z=-2808.10},
+  {name="LeiShen171",  x=-6378.01, y=204.39, z=-2918.41},
+  {name="LeiShen172",  x=-6237.11, y=272.18, z=-2936.25},
+  {name="LeiShen173",  x=-6005.75, y=215.67, z=-3275.84},
+  {name="LeiShen174",  x=-6016.84, y=233.72, z=-2913.60},
+  {name="LeiShen175",  x=-6011.43, y=170.47, z=-2824.07},
+  {name="LeiShen176",  x=-5964.59, y=299.61, z=-2581.46},
+  {name="LeiShen177",  x=-5975.25, y=196.13, z=-2564.42},
+  {name="LeiShen178",  x=-5927.02, y=157.33, z=-2710.72},
+  {name="LeiShen179",  x=-5959.67, y=209.16, z=-2613.89},
+  {name="LeiShen180",  x=-5791.71, y=205.08, z=-2625.75},
+  {name="LeiShen181",  x=-5870.15, y=249.09, z=-2463.85},
+  {name="LeiShen182",  x=-5890.66, y=170.84, z=-2691.94},
+  {name="LeiShen183",  x=-4952.54, y=212.82, z=-2524.09},
+}
+
+local function read_idx()
+  local f = io.open(PATH, "r")
+  if f then
+    local s = f:read("*l")
+    f:close()
+    local n = tonumber(s)
+    if n and n >= 1 and n <= #W then return n end
+  end
+  return 1
+end
+
+local function write_idx(n)
+  local okw, err = pcall(function()
+    local f = io.open(PATH, "w")
+    if f then f:write(tostring(n)); f:close() end
+  end)
+  if not okw then
+    show("写入错误: " .. tostring(err))
+  end
+end
+
+local idx = read_idx()
+local wp = W[idx]
+local pos = Vector3(wp.x, wp.y, wp.z)
+CS.MoleMole.ActorUtils.SetAvatarPos(pos)
+show(string.format("TP %d/%d: %s  (X:%.2f Y:%.2f Z:%.2f)  [next-> %d]",
+  idx, #W, wp.name, wp.x, wp.y, wp.z, (idx % #W) + 1))
+idx = idx + 1
+if idx > #W then idx = 1 end
+write_idx(idx)
